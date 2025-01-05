@@ -8,10 +8,22 @@ import { Button } from "@/components/ui/button";
 import { ListCreationProvider } from "@/context/ListCreationContext";
 import ShoppingListsStore from "@/stores/ShoppingListsStore";
 import { SignedIn, useUser } from "@clerk/clerk-expo";
+import { OneSignal } from "react-native-onesignal";
 
 export const unstable_settings = {
   initialRouteName: "index",
 };
+
+OneSignal.Notifications.requestPermission(true);
+
+OneSignal.Notifications.addEventListener("foregroundWillDisplay", (e) => {
+  console.log("Foreground display");
+  // console.log(JSON.stringify(e.notification, null, 2));
+});
+
+OneSignal.Notifications.addEventListener("click", (e) => {
+  console.log(e.result);
+});
 
 export default function AppIndexLayout() {
   const { user } = useUser();

@@ -14,6 +14,10 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { StatusBar } from "react-native";
+import { LogLevel, OneSignal } from "react-native-onesignal";
+
+OneSignal.Debug.setLogLevel(LogLevel.Verbose);
+OneSignal.initialize(process.env.EXPO_PUBLIC_ONE_SIGNAL_APP_ID!);
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
