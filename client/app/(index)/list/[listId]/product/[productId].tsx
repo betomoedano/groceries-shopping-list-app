@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { BodyScrollView } from "@/components/ui/BodyScrollView";
@@ -15,6 +15,32 @@ export default function ProductScreen() {
     listId: string;
     productId: string;
   };
+
+  // Check if the product exists by trying to get any of its properties
+  const [name] = useShoppingListProductCell(listId, productId, "name");
+
+  // If the product doesn't exist anymore, redirect to the list
+  React.useEffect(() => {
+    if (name === undefined) {
+      router.replace(`/list/${listId}`);
+    }
+  }, [listId, name]);
+
+  // If the product is deleted, show nothing while redirecting
+  if (name === undefined) {
+    return null;
+  }
+
+  return <ProductContent listId={listId} productId={productId} />;
+}
+
+function ProductContent({
+  listId,
+  productId,
+}: {
+  listId: string;
+  productId: string;
+}) {
   const [name, setName] = useShoppingListProductCell(listId, productId, "name");
   const [quantity, setQuantity] = useShoppingListProductCell(
     listId,
