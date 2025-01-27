@@ -16,8 +16,14 @@
         "dark": "./assets/images/icon-dark.png",
         "tinted": "./assets/images/icon-tinted.png"
       },
+      "appleTeamId": "T2A8YY9YDW",
       "config": {
         "usesNonExemptEncryption": false
+      },
+      "entitlements": {
+        "com.apple.security.application-groups": [
+          "group.lesson.com.betoatexpo.groceries-shopping-list"
+        ]
       }
     },
     "android": {
@@ -64,7 +70,8 @@
       ],
       "expo-sqlite",
       "expo-secure-store",
-      "expo-font"
+      "expo-font",
+      "@bacons/apple-targets"
     ],
     "experiments": {
       "typedRoutes": true

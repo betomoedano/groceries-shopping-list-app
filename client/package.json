@@ -7,6 +7,7 @@
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
+    "prewidget": "npx expo prebuild --template node_modules/@bacons/apple-targets/prebuild-blank.tgz --clean",
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint"

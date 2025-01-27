@@ -68,6 +68,29 @@ export const useJoinShoppingListCallback = () => {
   );
 };
 
+export const useRecentShoppingLists = () => {
+  const storeId = useStoreId();
+  const store = useStore(storeId);
+  const listIds = useRowIds("lists", storeId);
+
+  // Get up to 10 most recent lists
+  const recentListIds = listIds.slice(0, 10);
+
+  return recentListIds.map((listId) => {
+    const initialContentJson = store.getRow(
+      "lists",
+      listId
+    )?.initialContentJson;
+    const [, metadata] = JSON.parse(initialContentJson || "[{},{}]");
+
+    return {
+      listId,
+      name: metadata?.name || "",
+      emoji: metadata?.emoji || "",
+    };
+  });
+};
+
 // Returns a callback that deletes a shopping list from the store.
 export const useDelShoppingListCallback = (id: string) =>
   useDelRowCallback("lists", id, useStoreId());
