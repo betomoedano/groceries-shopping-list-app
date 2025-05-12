@@ -37,7 +37,7 @@ export default function Landing({
       </View>
 
       <View style={styles.actionSection}>
-        <Button
+        {/* <Button
           onPress={onGoogleSignIn}
           variant="outline"
           style={styles.button}
@@ -51,7 +51,7 @@ export default function Landing({
               Continue with Google
             </ThemedText>
           </View>
-        </Button>
+        </Button> */}
 
         <Button onPress={onEmailSignIn} variant="outline" style={styles.button}>
           <View style={styles.buttonContent}>
