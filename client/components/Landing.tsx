@@ -6,6 +6,7 @@ import { ThemedText } from "./ThemedText";
 import { BodyScrollView } from "./ui/BodyScrollView";
 import Button from "./ui/button";
 import { IconSymbol } from "./ui/IconSymbol";
+import { appleBlue } from "@/constants/Colors";
 
 type LandingProps = {
   onGoogleSignIn: () => void;
@@ -130,6 +131,6 @@ const styles = StyleSheet.create({
   },
   privacyPolicyText: {
     fontSize: 14,
-    color: "gray",
+    color: appleBlue,
   },
 });
