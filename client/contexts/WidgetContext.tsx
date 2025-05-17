@@ -30,16 +30,29 @@ export function WidgetProvider({ children }: { children: React.ReactNode }) {
     } else {
       // Store total count
       storage.set("widget_total_lists", totalLists);
+      // Format lists for widget display
+      const formattedRecentLists = recentLists.map((list) => {
+        // Get product count from the list's tables
+        const products = list.tables?.products || {};
+        const productCount = Object.keys(products).length;
+
+        // Count purchased items
+        const purchasedCount = Object.values(products).filter(
+          (product: any) => product.isPurchased
+        ).length;
+
+        return {
+          listId: list.values?.listId,
+          name: list.values?.name,
+          emoji: list.values?.emoji,
+          color: list.values?.color,
+          productCount,
+          purchasedCount,
+        };
+      });
 
       // Store recent lists data
-      storage.set(
-        "widget_recent_lists",
-        recentLists.map((list) => ({
-          listId: list.listId,
-          name: list.name,
-          emoji: list.emoji,
-        }))
-      );
+      storage.set("widget_recent_lists", formattedRecentLists);
     }
 
     // Refresh widget
