@@ -2,7 +2,7 @@
   "expo": {
     "name": "Shopping List",
     "slug": "groceries-shopping-list",
-    "version": "1.2.4",
+    "version": "1.2.5",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "groceries-shopping-list",
@@ -89,6 +89,7 @@
     },
     "updates": {
       "url": "https://u.expo.dev/7428a2a2-f953-4c9f-8be3-74117e5fdc8d"
-    }
+    },
+    "owner": "betoatexpo"
   }
 }
