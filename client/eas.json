@@ -16,7 +16,8 @@
     },
     "production": {
       "autoIncrement": true,
-      "channel": "production"
+      "channel": "production",
+      "resourceClass": "large"
     },
     "development-simulator": {
       "developmentClient": true,
