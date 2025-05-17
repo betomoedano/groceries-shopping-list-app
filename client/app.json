@@ -71,7 +71,8 @@
       "expo-sqlite",
       "expo-secure-store",
       "expo-font",
-      "@bacons/apple-targets"
+      "@bacons/apple-targets",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
