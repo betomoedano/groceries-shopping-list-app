@@ -17,6 +17,7 @@ import Button from "@/components/ui/button";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { appleBlue, appleGreen, appleRed } from "@/constants/Colors";
 import { useClerk, useUser } from "@clerk/clerk-expo";
+import { StatusBar } from "expo-status-bar";
 
 export default function ProfileScreen() {
   const { user } = useUser();
@@ -101,6 +102,7 @@ export default function ProfileScreen() {
 
   return (
     <BodyScrollView contentContainerStyle={styles.container}>
+      <StatusBar style="light" animated />
       <View>
         <View style={styles.header}>
           {user?.imageUrl ? (

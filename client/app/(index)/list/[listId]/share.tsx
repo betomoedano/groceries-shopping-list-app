@@ -4,7 +4,7 @@ import QRCode from "react-native-qrcode-svg";
 import { ThemedText } from "@/components/ThemedText";
 import { BodyScrollView } from "@/components/ui/BodyScrollView";
 import Button from "@/components/ui/button";
-
+import { StatusBar } from "expo-status-bar";
 export default function ShareListScreen() {
   const { listId } = useLocalSearchParams() as { listId: string };
 
@@ -20,6 +20,7 @@ export default function ShareListScreen() {
 
   return (
     <BodyScrollView contentContainerStyle={styles.container}>
+      <StatusBar style="light" animated />
       <View style={styles.heroSection}>
         <ThemedText type="subtitle" style={styles.title}>
           Invite Collaborators

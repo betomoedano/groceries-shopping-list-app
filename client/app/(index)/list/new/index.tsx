@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Href, useGlobalSearchParams, useRouter } from "expo-router";
 import { StyleSheet, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
 // Components
 import { IconCircle } from "@/components/IconCircle";
 import { ThemedText } from "@/components/ThemedText";
@@ -63,6 +64,7 @@ export default function NewListScreen() {
 
   return (
     <BodyScrollView contentContainerStyle={styles.scrollViewContent}>
+      <StatusBar style="light" animated />
       <View style={styles.container}>
         <View style={styles.heroSection}>
           <IconCircle

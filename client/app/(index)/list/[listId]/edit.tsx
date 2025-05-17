@@ -7,6 +7,7 @@ import Button from "@/components/ui/button";
 import TextInput from "@/components/ui/text-input";
 import { useListCreation } from "@/context/ListCreationContext";
 import { useShoppingListValue } from "@/stores/ShoppingListStore";
+import { StatusBar } from "expo-status-bar";
 
 export default function ListScreen() {
   const router = useRouter();
@@ -66,6 +67,7 @@ export default function ListScreen() {
           ),
         }}
       />
+      <StatusBar style="light" animated />
       <BodyScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.inputContainer}>
           <TextInput

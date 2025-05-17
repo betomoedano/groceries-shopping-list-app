@@ -1,6 +1,7 @@
 import React from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { ThemedText } from "@/components/ThemedText";
 import { BodyScrollView } from "@/components/ui/BodyScrollView";
 import TextInput from "@/components/ui/text-input";
@@ -72,6 +73,7 @@ function ProductContent({
         paddingBottom: 100,
       }}
     >
+      <StatusBar style="light" animated />
       <FieldItem label="Product name" value={name} onChangeText={setName} />
       <FieldItem label="Created by" value={createdBy ?? "unknown"} />
       <FieldItem

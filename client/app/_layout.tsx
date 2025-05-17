@@ -14,6 +14,7 @@ import {
   Theme,
   ThemeProvider,
 } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
@@ -65,6 +66,7 @@ export default function RootLayout() {
   };
   return (
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
+      <StatusBar style="auto" animated />
       <ClerkLoaded>
         <ThemeProvider
           value={colorScheme === "dark" ? CustomDarkTheme : CustomDefaultTheme}
