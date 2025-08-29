@@ -1,4 +1,4 @@
-[![App Banner](https://res.cloudinary.com/dpvsklksg/image/upload/cwb/Shopping-banner_r4cq2u.png)](https://codewithbeto.dev/projects/shopping-list-app)
+![App Banner](https://cwb-video-demos.s3.us-east-2.amazonaws.com/general/banner+for+repo.png)
 
 # Local-First Shopping List App
 
