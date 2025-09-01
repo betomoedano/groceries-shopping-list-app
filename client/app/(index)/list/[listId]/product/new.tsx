@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { Platform, View } from "react-native";
+import { Alert, Platform, View } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { BodyScrollView } from "@/components/ui/BodyScrollView";
 import Button from "@/components/ui/button";
@@ -19,11 +19,16 @@ export default function NewItemScreen() {
   const addShoppingListProduct = useAddShoppingListProductCallback(listId);
 
   const handleCreateProduct = () => {
-    if (!name) {
+    if (!name.trim()) {
+      Alert.alert(
+        "📝 Product title required",
+        "🛒 Please provide a product title to add it to your shopping list.",
+        [{ text: "OK" }]
+      );
       return;
     }
 
-    addShoppingListProduct(name, quantity, units, notes);
+    addShoppingListProduct(name.trim(), quantity, units, notes);
 
     router.back();
   };
@@ -38,7 +43,7 @@ export default function NewItemScreen() {
             <Button
               variant="ghost"
               onPress={handleCreateProduct}
-              disabled={!name}
+              disabled={!name.trim()}
             >
               Save
             </Button>
@@ -110,7 +115,7 @@ export default function NewItemScreen() {
           onChangeText={setNotes}
         />
         {Platform.OS !== "ios" && (
-          <Button onPress={handleCreateProduct} disabled={!name}>
+          <Button onPress={handleCreateProduct} disabled={!name.trim()}>
             Add product
           </Button>
         )}

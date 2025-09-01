@@ -47,7 +47,7 @@ export default function HomeScreen() {
       // work around for https://github.com/software-mansion/react-native-screens/issues/2219
       // onPress={handleNewListPress}
       onPress={handleNewListPress}
-      style={styles.headerButton}
+      // style={styles.headerButton}
     >
       <IconSymbol name="plus" color={ICON_COLOR} />
     </Pressable>

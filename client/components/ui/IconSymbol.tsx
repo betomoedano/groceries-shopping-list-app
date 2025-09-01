@@ -30,6 +30,7 @@ const MAPPING = {
   "square.and.arrow.up": "share",
   "qrcode.viewfinder": "qr-code",
   gear: "settings",
+  "pencil": "edit",
 } as Partial<
   Record<
     import("expo-symbols").SymbolViewProps["name"],
