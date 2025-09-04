@@ -1,22 +1,37 @@
 // client/components/landing.tsx
 import React from "react";
-import * as Haptics from "expo-haptics";
-import { Image, StyleSheet, View, useColorScheme } from "react-native";
+import { Alert, Image, StyleSheet, View, useColorScheme } from "react-native";
 import { ThemedText } from "./ThemedText";
 import { BodyScrollView } from "./ui/BodyScrollView";
 import Button from "./ui/button";
 import { IconSymbol } from "./ui/IconSymbol";
 import { appleBlue } from "@/constants/Colors";
+import * as AppleAuthentication from "expo-apple-authentication";
+import * as Crypto from "expo-crypto";
 
 type LandingProps = {
   onGoogleSignIn: () => void;
   onEmailSignIn: () => void;
+  onAppleSignIn?: (
+    credential: AppleAuthentication.AppleAuthenticationCredential
+  ) => Promise<void>;
   onPrivacyPolicy: () => void;
 };
+
+async function createNonce(length = 16) {
+  // Generate random bytes
+  const bytes = await Crypto.getRandomBytesAsync(length);
+
+  // Convert to hex string
+  return Array.from(bytes)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
 
 export default function Landing({
   onGoogleSignIn,
   onEmailSignIn,
+  onAppleSignIn,
   onPrivacyPolicy,
 }: LandingProps) {
   const theme = useColorScheme();
@@ -38,7 +53,7 @@ export default function Landing({
       </View>
 
       <View style={styles.actionSection}>
-        {/* <Button
+        <Button
           onPress={onGoogleSignIn}
           variant="outline"
           style={styles.button}
@@ -52,7 +67,7 @@ export default function Landing({
               Continue with Google
             </ThemedText>
           </View>
-        </Button> */}
+        </Button>
 
         <Button onPress={onEmailSignIn} variant="outline" style={styles.button}>
           <View style={styles.buttonContent}>
@@ -66,6 +81,39 @@ export default function Landing({
             </ThemedText>
           </View>
         </Button>
+
+        <AppleAuthentication.AppleAuthenticationButton
+          buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+          buttonStyle={
+            theme === "dark"
+              ? AppleAuthentication.AppleAuthenticationButtonStyle.WHITE
+              : AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
+          }
+          cornerRadius={12}
+          style={{ height: 44, width: "100%" }}
+          onPress={async () => {
+            try {
+              const nonce = await createNonce();
+              const credential = await AppleAuthentication.signInAsync({
+                nonce,
+                requestedScopes: [
+                  AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                  AppleAuthentication.AppleAuthenticationScope.EMAIL,
+                ],
+              });
+              await onAppleSignIn(credential);
+            } catch (e) {
+              if (e.code === "ERR_REQUEST_CANCELED") {
+                // handle that the user canceled the sign-in flow
+              } else {
+                Alert.alert(
+                  "Error",
+                  "An error occurred while signing in with Apple"
+                );
+              }
+            }
+          }}
+        />
       </View>
 
       <View style={styles.footer}>

@@ -2,22 +2,47 @@ import React from "react";
 import * as Haptics from "expo-haptics";
 import { useRouter, Href } from "expo-router";
 import { Platform, useColorScheme } from "react-native";
-import { isClerkAPIResponseError, useSSO } from "@clerk/clerk-expo";
+import { isClerkAPIResponseError, useSignIn, useSSO } from "@clerk/clerk-expo";
 import * as WebBrowser from "expo-web-browser";
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
 import * as AuthSession from "expo-auth-session";
 import { ClerkAPIError } from "@clerk/types";
 import Landing from "@/components/Landing";
 import { ScrollView } from "react-native";
+import * as AppleAuthentication from "expo-apple-authentication";
+
 // Handle any pending authentication sessions
 WebBrowser.maybeCompleteAuthSession();
 
 export default function SignIn() {
   useWarmUpBrowser();
   const { startSSOFlow } = useSSO();
+  const { signIn, setActive } = useSignIn();
   const router = useRouter();
   const [errors, setErrors] = React.useState<ClerkAPIError[]>([]);
-  const theme = useColorScheme();
+
+  const handleSignInWithApple = React.useCallback(
+    async (credential: AppleAuthentication.AppleAuthenticationCredential) => {
+      try {
+        const signInResult = await signIn.create({
+          // @ts-ignore
+          strategy: "oauth_token_apple",
+          token: credential.identityToken,
+        });
+
+        if (signInResult.status === "complete") {
+          await setActive({ session: signInResult.createdSessionId });
+          router.replace("/(index)");
+        } else {
+          console.error(JSON.stringify(signInResult, null, 2));
+        }
+      } catch (err) {
+        if (isClerkAPIResponseError(err)) setErrors(err.errors);
+        console.error(JSON.stringify(err, null, 2));
+      }
+    },
+    []
+  );
 
   const handleSignInWithGoogle = React.useCallback(async () => {
     if (process.env.EXPO_OS === "ios") {
@@ -75,6 +100,7 @@ export default function SignIn() {
       onGoogleSignIn={handleSignInWithGoogle}
       onEmailSignIn={() => onNavigatePress("/sign-in-email")}
       onPrivacyPolicy={() => onNavigatePress("/privacy-policy")}
+      onAppleSignIn={handleSignInWithApple}
     />
   );
 }

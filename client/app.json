@@ -10,6 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
+      "userAppleSignIn": true,
       "bundleIdentifier": "com.betoatexpo.groceries-shopping-list",
       "appleTeamId": "T2A8YY9YDW",
       "icon": {
@@ -72,7 +73,8 @@
       "expo-secure-store",
       "expo-font",
       "@bacons/apple-targets",
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-apple-authentication"
     ],
     "experiments": {
       "typedRoutes": true
