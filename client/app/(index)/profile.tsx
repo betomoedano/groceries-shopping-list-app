@@ -18,6 +18,7 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import { appleBlue, appleGreen, appleRed } from "@/constants/Colors";
 import { useClerk, useUser } from "@clerk/clerk-expo";
 import { StatusBar } from "expo-status-bar";
+import * as Device from "expo-device";
 
 export default function ProfileScreen() {
   const { user } = useUser();
@@ -27,6 +28,8 @@ export default function ProfileScreen() {
   const { isUpdateAvailable, isUpdatePending } = Updates.useUpdates();
 
   useEffect(() => {
+    if (!Device.isDevice) return;
+
     Updates.checkForUpdateAsync();
   }, []);
 
