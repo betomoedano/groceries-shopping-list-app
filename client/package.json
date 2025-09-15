@@ -36,6 +36,7 @@
     "expo-haptics": "~15.0.6",
     "expo-linking": "~8.0.7",
     "expo-network": "~8.0.6",
+    "expo-quick-actions": "^6.0.0",
     "expo-router": "~6.0.0-preview.14",
     "expo-secure-store": "~15.0.6",
     "expo-splash-screen": "~31.0.8",
